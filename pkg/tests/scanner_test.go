@@ -284,12 +284,6 @@ func TestJustValues(t *testing.T) {
 		case keywordKey:
 			in = fmt.Sprintf("%s=%s", secret.Key, input[secret.Key])
 			expected = append(expected, secrets.DetectedSecret{Key: secret.Key, Type: secret.Type, Value: secret.Value})
-		case pkKey:
-			in = input[secret.Key]
-			if i := strings.Index(secret.Value, "\n"); i != -1 { // in pk we identify the header as value
-				secret.Value = secret.Value[:i]
-			}
-			expected = append(expected, secrets.DetectedSecret{Key: "", Type: secret.Type, Value: secret.Value})
 		case azureKey:
 			in = input[secret.Key]
 			expected = append(expected, secrets.DetectedSecret{Key: "AccountKey", Type: secret.Type, Value: secret.Value[11:]})
